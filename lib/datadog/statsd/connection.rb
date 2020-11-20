@@ -33,12 +33,14 @@ module Datadog
         logger.error("*** Rescue error: #{boom}")
         # Try once to reconnect if the socket has been closed
         retries ||= 1
+        logger.info("Retry attempt: #{retries}")
         if retries <= 1 &&
           (boom.is_a?(Errno::ENOTCONN) or
            boom.is_a?(Errno::ECONNREFUSED) or
            boom.is_a?(IOError) && boom.message =~ /closed stream/i)
           retries += 1
           begin
+            logger.info("Retrying")
             close
             retry
           rescue StandardError => e
