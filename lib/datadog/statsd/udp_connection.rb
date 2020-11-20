@@ -24,12 +24,15 @@ module Datadog
       private
 
       def connect
+        logger.info("Connecting to UDP socket")
         UDPSocket.new.tap do |socket|
           socket.connect(host, port)
         end
+        logger.info("Connected to UDP socket")
       end
 
       def send_message(message)
+        logger.info("Sending message over UDP")
         socket.send(message, 0)
       end
     end

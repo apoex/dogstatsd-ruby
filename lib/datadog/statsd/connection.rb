@@ -30,6 +30,7 @@ module Datadog
 
         telemetry.sent(packets: 1, bytes: payload.length)
       rescue StandardError => boom
+        logger.error("*** Rescue error: #{boom}")
         # Try once to reconnect if the socket has been closed
         retries ||= 1
         if retries <= 1 &&
