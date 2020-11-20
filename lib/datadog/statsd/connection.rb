@@ -24,7 +24,8 @@ module Datadog
 
         payload += telemetry.flush if flush_telemetry
 
-        send_message(payload)
+        sent = send_message(payload)
+        logger.debug("Statsd: sent #{sent} bytes")
 
         telemetry.reset if flush_telemetry
 
