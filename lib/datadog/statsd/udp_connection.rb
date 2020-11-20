@@ -25,7 +25,7 @@ module Datadog
 
       def connect
         logger.info("Connecting to UDP socket")
-        cpnn = UDPSocket.new.tap do |socket|
+        conn = UDPSocket.new.tap do |socket|
           socket.connect(host, port)
         end
         logger.info("Connected to UDP socket")
